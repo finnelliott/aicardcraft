@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en" className="text-black">
       <body>
         <Header />
-        
+        {/* Seeing if branch protection works */}
         {children}
         <Footer />
       </body>

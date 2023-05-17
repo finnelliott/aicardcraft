@@ -1,0 +1,796 @@
+[
+    {
+        "name": "subject",
+        "description": "a character, individual or thing being portrayed",
+        "subcategories": [
+            {
+                "name": "animal",
+                "items": [
+                    "a dog",
+                    "a cat",
+                    "a horse",
+                    "a bird",
+                    "a fish",
+                    "a reptile",
+                    "an insect",
+                    "an amphibian",
+                    "a mammal",
+                    "an aquatic animal",
+                    "a wild animal",
+                    "a domestic animal",
+                    "a farm animal",
+                    "an animal at the zoo",
+                    "a pet",
+                    "a rodent",
+                    "a primate",
+                    "a bear",
+                    "a deer",
+                    "a wolf",
+                    "a fox",
+                    "a rabbit",
+                    "a squirrel",
+                    "a mouse",
+                    "a rat",
+                    "a bat",
+                    "a cow",
+                    "a pig",
+                    "a sheep",
+                    "a goat",
+                    "a chicken",
+                    "a duck",
+                    "a goose",
+                    "a turkey",
+                    "a pigeon",
+                    "a parrot",
+                    "a peacock",
+                    "an ostrich",
+                    "a penguin",
+                    "a seagull",
+                    "an eagle",
+                    "a hawk",
+                    "an owl"
+                ]
+            },
+            {
+                "name": "object",
+                "items": [
+                    "a book",
+                    "a pen",
+                    "a pencil",
+                    "a marker",
+                    "a crayon",
+                    "a paintbrush",
+                    "a paint roller",
+                    "a paint palette",
+                    "a canvas",
+                    "a sketchbook",
+                    "a notebook",
+                    "a journal",
+                    "a diary",
+                    "a newspaper",
+                    "a magazine",
+                    "a comic book",
+                    "a letter",
+                    "a postcard",
+                    "a photograph",
+                    "a camera",
+                    "a video camera",
+                    "a tripod",
+                    "a microphone",
+                    "a speaker",
+                    "a computer",
+                    "a laptop",
+                    "a tablet",
+                    "a phone",
+                    "a television",
+                    "a radio",
+                    "a clock",
+                    "a lamp",
+                    "a lightbulb",
+                    "a candle",
+                    "a flashlight",
+                    "a mirror",
+                    "a window",
+                    "a door",
+                    "a key",
+                    "a lock",
+                    "a chair",
+                    "a table",
+                    "a desk",
+                    "a bed",
+                    "a couch",
+                    "a sofa",
+                    "a pillow",
+                    "a blanket",
+                    "a rug"
+                ]
+            },
+            {
+                "name": "landscape",
+                "items": [
+                    "a hill",
+                    "a mountain",
+                    "a valley",
+                    "a river",
+                    "a lake",
+                    "a pond",
+                    "a waterfall",
+                    "a stream",
+                    "a forest",
+                    "a jungle",
+                    "a desert",
+                    "a beach",
+                    "a cave",
+                    "a canyon",
+                    "a volcano",
+                    "a glacier",
+                    "a cliff",
+                    "a field",
+                    "a meadow",
+                    "a prairie",
+                    "a swamp",
+                    "a marsh",
+                    "a bog"
+                ]
+            },
+            {
+                "name": "abstract",
+                "items": [
+                    "lines",
+                    "shapes",
+                    "colors",
+                    "textures",
+                    "patterns",
+                    "shadows",
+                    "reflections",
+                    "symmetry",
+                    "asymmetry",
+                    "repetition",
+                    "contrast",
+                    "balance",
+                    "emphasis",
+                    "proportion",
+                    "movement",
+                    "rhythm"
+                ]
+            },
+            {
+                "name": "building",
+                "items": [
+                    "the Empire State Building",
+                    "the Eiffel Tower",
+                    "Big Ben",
+                    "the White House",
+                    "the Taj Mahal",
+                    "the Great Wall of China",
+                    "the Colosseum",
+                    "the Leaning Tower of Pisa",
+                    "the Statue of Liberty",
+                    "the Great Pyramid of Giza",
+                    "the Sydney Opera House",
+                    "the Parthenon",
+                    "the Louvre",
+                    "the Guggenheim Museum",
+                    "the Burj Khalifa",
+                    "the Golden Gate Bridge",
+                    "the Brooklyn Bridge",
+                    "the London Bridge",
+                    "the Tower Bridge",
+                    "the CN Tower",
+                    "the Space Needle",
+                    "the Washington Monument",
+                    "the Lincoln Memorial",
+                    "the Jefferson Memorial",
+                    "the Capitol Building",
+                    "the Pentagon",
+                    "the Colosseum",
+                    "the Pantheon",
+                    "the Arc de Triomphe",
+                    "the Notre Dame Cathedral",
+                    "the Sagrada Familia",
+                    "the Alhambra",
+                    "the Great Mosque of Mecca",
+                    "the Dome of the Rock",
+                    "the Hagia Sophia",
+                    "the Blue Mosque",
+                    "the Forbidden City",
+                    "the Temple of Heaven",
+                    "the Summer Palace",
+                    "the Terracotta Army",
+                    "the Great Buddha of Kamakura"
+                ]
+            },
+            {
+                "name": "vehicle",
+                "items": [
+                    "a car",
+                    "a truck",
+                    "a van",
+                    "a bus",
+                    "a train",
+                    "a subway",
+                    "a boat",
+                    "a ship",
+                    "a yacht",
+                    "a sailboat",
+                    "a canoe",
+                    "a kayak",
+                    "a raft",
+                    "a hot air balloon",
+                    "a helicopter",
+                    "a plane",
+                    "a jet",
+                    "a rocket",
+                    "a motorcycle",
+                    "a bicycle",
+                    "a scooter",
+                    "a skateboard",
+                    "a surfboard",
+                    "a snowboard",
+                    "a skis",
+                    "a sled",
+                    "a toboggan",
+                    "a snowmobile",
+                    "a tractor",
+                    "a bulldozer",
+                    "a crane",
+                    "a forklift",
+                    "a golf cart",
+                    "a wheelchair",
+                    "a stroller",
+                    "a shopping cart"
+                ]
+            },
+            {
+                "name": "plant",
+                "items": [
+                    "a tree",
+                    "a flower",
+                    "a bush",
+                    "a shrub",
+                    "a cactus",
+                    "a succulent",
+                    "a fern",
+                    "a mushroom"
+                ]
+            },
+            {
+                "name": "food",
+                "items": [
+                    "a burger",
+                    "a sandwich",
+                    "a hot dog",
+                    "a taco",
+                    "a burrito",
+                    "a pizza",
+                    "a salad",
+                    "a soup",
+                    "a stew",
+                    "a curry",
+                    "a sushi roll",
+                    "a dumpling",   
+                    "a cookie",
+                    "a cake",
+                    "a pie",
+                    "a cupcake",
+                    "a donut",
+                    "an ice cream cone",
+                    "a popsicle",
+                    "a sundae",
+                    "a milkshake",
+                    "a smoothie",
+                    "a soda"
+                ]
+            },
+            {
+                "name": "clothing",
+                "items": [
+                    "a shirt",
+                    "a t-shirt",
+                    "a tank top",
+                    "a sweater",
+                    "a sweatshirt",
+                    "a jacket",
+                    "a coat",
+                    "a dress",
+                    "a skirt",
+                    "a pair of pants",
+                    "a pair of shorts",
+                    "a pair of jeans",
+                    "a pair of socks",
+                    "a pair of shoes",
+                    "a pair of boots",
+                    "a pair of sandals",
+                    "a pair of slippers",
+                    "a hat",
+                    "a cap",
+                    "a beanie",
+                    "a scarf",
+                    "a tie"
+                ]
+            },
+            {
+                "name": "furniture",
+                "items": [
+                    "a chair",
+                    "a couch",
+                    "a sofa",
+                    "a loveseat",
+                    "a bench",
+                    "a stool",
+                    "a table",
+                    "a desk",
+                    "a bed",
+                    "a dresser",
+                    "a cabinet",
+                    "a shelf",
+                    "a bookshelf",
+                    "a bookcase",
+                    "a nightstand",
+                    "a wardrobe"
+                ]
+            },
+            {
+                "name": "art",
+                "items": [
+                    "the Mona Lisa",
+                    "the Last Supper",
+                    "the Sistine Chapel",
+                    "the Creation of Adam",
+                    "the Starry Night",
+                    "the Persistence of Memory",
+                    "the Thinker",
+                    "the Kiss",
+                    "the Birth of Venus",
+                    "the Statue of David",
+                    "the Pieta",
+                    "the School of Athens"
+                ]
+            }
+        ]
+    },
+    { 
+        "name": "medium", 
+        "description": "the artistic method or material used",
+        "subcategories": [
+            {
+                "name": "drawing",
+                "items": [
+                    "a pencil drawing",
+                    "a charcoal drawing",
+                    "a pen drawing",
+                    "a marker drawing",
+                    "a crayon drawing",
+                    "a pastel drawing",
+                    "a chalk drawing",
+                    "a colored pencil drawing",
+                    "a ballpoint pen drawing",
+                    "a fountain pen drawing",
+                    "a gel pen drawing"
+                ]
+            },
+            {
+                "name": "painting",
+                "items": [
+                    "an oil painting",
+                    "a watercolor painting",
+                    "a gouache painting",
+                    "a tempera painting",
+                    "a fresco painting",
+                    "an acrylic painting",
+                    "a spray paint painting"
+                ]
+            },
+            {
+                "name": "print",
+                "items": [
+                    "a woodcut print",
+                    "an engraving print",
+                    "a lithograph print",
+                    "a screen print",
+                    "a monotype print",
+                    "a monoprint",
+                    "a drypoint print",
+                    "an etching print"
+                ]
+            },
+            {
+                "name": "photograph",
+                "items": [
+                    "a black and white photograph",
+                    "a color photograph",
+                    "a digital photograph",
+                    "a film photograph",
+                    "a polaroid photograph",
+                    "a selfie",
+                    "a portrait photograph",
+                    "a landscape photograph",
+                    "a cityscape photograph",
+                    "a seascape photograph",
+                    "a nature photograph",
+                    "a wildlife photograph",
+                    "a macro photograph",
+                    "a micro photograph"
+                ]
+            },
+            {
+                "name": "sculpture",
+                "items": [
+                    "a marble sculpture",
+                    "a bronze sculpture",
+                    "a wood sculpture",
+                    "a clay sculpture",
+                    "a ceramic sculpture",
+                    "a glass sculpture",
+                    "a plastic sculpture",
+                    "a metal sculpture",
+                    "a stone sculpture",
+                    "a sand sculpture",
+                    "an ice sculpture",
+                    "a snow sculpture",
+                    "a balloon sculpture",
+                    "a paper sculpture",
+                    "a cardboard sculpture"
+                ]
+            },
+            {
+                "name": "architecture",
+                "items": [
+                    ""
+                ]
+            },
+            {
+                "name": "digital",
+                "items": [
+                    "a digital painting",
+                    "a digital drawing",
+                    "a digital photograph",
+                    "a digital collage",
+                    "a digital print",
+                    "a digital sculpture",
+                    "a digital animation",
+                    "a digital film"
+                ]
+            }
+        ]
+    }, 
+    { 
+        "name": "style", 
+        "description": "the distinctive visual elements and techniques employed",
+        "subcategories": [
+            {
+                "name": "realism",
+                "items": [
+                    "photorealism",
+                    "hyperrealism",
+                    "naturalism",
+                    "lifelike",
+                    "true to life"
+                ]
+            },
+            {
+                "name": "abstract",
+                "items": [
+                    "abstract expressionism",
+                    "cubism",
+                    "fauvism",
+                    "impressionism",
+                    "minimalism",
+                    "modernism",
+                    "post-impressionism",
+                    "surrealism"
+                ]
+            },
+            {
+                "name": "stylized",
+                "items": [
+                    "caricature",
+                    "cartoon",
+                    "comic",
+                    "anime",
+                    "manga",
+                    "pixel art",
+                    "pop art",
+                    "graffiti",
+                    "street art",
+                    "tattoo",
+                    "tribal",
+                    "gothic",
+                    "baroque",
+                    "rococo",
+                    "neoclassical",
+                    "romantic",
+                    "renaissance",
+                    "medieval",
+                    "byzantine",
+                    "ancient",
+                    "prehistoric",
+                    "primitive",
+                    "naive",
+                    "folk",
+                    "outsider",
+                    "visionary",
+                    "brut",
+                    "raw",
+                    "intuitive",
+                    "abstract",
+                    "abstract expressionism",
+                    "cubism",
+                    "fauvism",
+                    "impressionism",
+                    "minimalism",
+                    "modernism",
+                    "post-impressionism",
+                    "surrealism"
+                ]
+            }
+        ]
+    }, 
+    { 
+        "name": "artist", 
+        "description": "the creator(s) of the artwork" ,
+        "subcategories": [
+            {
+                "name": "baroque",
+                "items": [
+                    "William Dobson",
+                    "Anthony van Dyck",
+                    "Frans Hals",
+                    "Judith Leyster",
+                    "Rembrandt van Rijn",
+                    "Peter Paul Rubens",
+                    "Diego Velazquez"
+                ]
+            },
+            {
+                "name": "impressionism",
+                "items": [
+                    "Monet",
+                    "Manet",
+                    "Degas",
+                    "Renoir",
+                    "Cassatt",
+                    "Morisot",
+                    "Pissarro",
+                    "Sisley"
+                ]
+            },
+            {
+                "name": "post-impressionism",
+                "items": [
+                    "Cezanne",
+                    "Gauguin",
+                    "Seurat",
+                    "Toulouse-Lautrec",
+                    "Van Gogh"
+                ]
+            },
+            {
+                "name": "expressionism",
+                "items": [
+                    "Munch",
+                    "Kandinsky",
+                    "Marc",
+                    "Kirchner",
+                    "Klee",
+                    "Nolde",
+                    "Schmidt-Rottluff",
+                    "Beckmann",
+                    "Dix",
+                    "Grosz",
+                    "Kokoschka",
+                    "Schiele",
+                    "Modersohn-Becker",
+                    "Macke",
+                    "Muenter",
+                    "Feininger",
+                    "Jawlensky"
+                ]
+            },
+            {
+                "name": "cubism",
+                "items": [
+                    "Picasso",
+                    "Braque",
+                    "Gris",
+                    "Leger",
+                    "Metzinger",
+                    "Gleizes",
+                    "Delaney",
+                    "La Fresnaye",
+                    "Delaunay",
+                    "Picabia",
+                    "Duchamp",
+                    "Villon"
+                ]
+            },
+            {
+                "name": "surrealism",
+                "items": [
+                    "Dali",
+                    "Magritte",
+                    "Miro",
+                    "Ernst",
+                    "Masson",
+                    "Tanguy"
+                ]
+            },
+            {
+                "name": "pop art",
+                "items": [
+                    "Warhol",
+                    "Lichtenstein",
+                    "Oldenburg",
+                    "Rosenquist",
+                    "Wesselmann"
+                ]
+            },
+            {
+                "name": "minimalism",
+                "items": [
+                    "Andre",
+                    "Flavin",
+                    "Judd",
+                    "LeWitt",
+                    "Morris"
+                ]
+            },
+            {
+                "name": "conceptualism",
+                "items": [
+                    "Beuys",
+                    "Buren",
+                    "Horn",
+                    "Kosuth",
+                    "Nauman"
+                ]
+            },
+            {
+                "name": "fauvism",
+                "items": [
+                    "Matisse",
+                    "Derain",
+                    "Vlaminck"
+                ]
+            },
+            {
+                "name": "dada",
+                "items": [
+                    "Arp",
+                    "Ball",
+                    "Duchamp",
+                    "Ernst",
+                    "Hausmann",
+                    "Heartfield",
+                    "Picabia",
+                    "Schwitters",
+                    "Tzara"
+                ]
+            },
+            {
+                "name": "realism",
+                "items": [
+                    "Courbet",
+                    "Daumier",
+                    "Manet",
+                    "Millet"
+                ]
+            },
+            {
+                "name": "romanticism",
+                "items": [
+                    "Blake",
+                    "Constable",
+                    "Delacroix",
+                    "Friedrich",
+                    "Gericault",
+                    "Goya",
+                    "Turner"
+                ]
+            }
+        ]
+    },
+    { 
+        "name": "resolution", 
+        "description": "the level of detail and clarity in the artwork",
+        "subcategories": [
+            {
+                "name": "high",
+                "items": [
+                    "high resolution",
+                    "high quality",
+                    "photorealistic",
+                    "realistic",
+                    "detailed",
+                    "detailed image",
+                    "sharp focus",
+                    "high res"
+                ]
+            },
+            {
+                "name": "low",
+                "items": [
+                    "low resolution",
+                    "low quality",
+                    "low res",
+                    "low res image",
+                    "low quality image"
+                ]
+            }
+        ]
+    },
+    { 
+        "name": "color", 
+        "description": "the dominant hue or tone in the artwork",
+        "subcategories": [
+            {
+                "name": "dark",
+                "items": [
+                    "black",
+                    "grey",
+                    "dark"
+                ]
+            },
+            {
+                "name": "light",
+                "items": [
+                    "white",
+                    "light"
+                ]
+            },
+            {
+                "name": "colors",
+                "items": [
+                    "red",
+                    "orange",
+                    "yellow",
+                    "purple",
+                    "pink",
+                    "green",
+                    "blue",
+                    "brown"
+                ]
+            },
+            {
+                "name": "types",
+                "items": [
+                    "irridescent",
+                    "metallic",
+                    "pastel",
+                    "vibrant",
+                    "bright",
+                    "dark"
+                ]
+            }
+        ]
+    }, 
+    { 
+        "name": "lighting", 
+        "description": "the illumination and shadow effects in the artwork",
+        "subcategories": [
+            {
+                "name": "light",
+                "items": [
+                    "light",
+                    "bright",
+                    "brightly lit",
+                    "brightly lit image",
+                    "bright image",
+                    "brightly lit artwork",
+                    "bright artwork"
+                ]
+            },
+            {
+                "name": "dark",
+                "items": [
+                    "dark",
+                    "darkly lit",
+                    "darkly lit image",
+                    "dark image",
+                    "darkly lit artwork",
+                    "dark artwork"
+                ]
+            }
+        ]
+    }
+]

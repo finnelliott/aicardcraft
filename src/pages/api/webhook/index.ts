@@ -157,7 +157,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                 <div id="inside-front" style="width: 1683px; height: 1712px;"></div>
                 <div id="inside-back" class="flex flex-col justify-between items-center" style="width: 1683px; height: 1712px; padding-left: 225px; padding-top: 250px; padding-bottom:250px; padding-right:250px; font-size: 48px; text-align: center;">
                     <div id="top-message">${order.top_message}</div>
-                    <div id="middle-message" style="font-size: 64px;">${order.middle_message}</div>
+                    <div id="middle-message" style="font-size: 64px;" class="text-center whitespace-break-spaces">${order.middle_message}</div>
                     <div id="bottom-message">${order.bottom_message}</div>
                 </div>
             </body>

@@ -1,5 +1,6 @@
 "use client";
 import { Order } from "@prisma/client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -31,10 +32,41 @@ export default function AddMessage({ order }: { order: Order }) {
         router.push(`/create/recipient?order_id=${response.id}`)
     }
     return (
-        <form className="flex flex-col space-y-4" onSubmit={(e) => {e.preventDefault();handleSubmit()}}>
+        <div className="grid grid-cols-1 lg:grid-cols-3 lg:divide-x lg:divide-y-0 divide-x-0 divide-y divide-gray-200">
+        <div className="col-span-1 p-6 flex flex-col sm:flex-row lg:flex-col justify-start">
+            <label htmlFor="front-preview" className="block text-sm font-medium leading-6 text-gray-900 mb-2 w-56">
+                Preview of front
+            </label>
+            <div id="front-preview" className="max-w-sm max-h-[384px] rounded-md bg-gray-200 border border-gray-200 shadow-inner w-full aspect-[1/1] flex items-center justify-center text-gray-600 relative overflow-hidden h-auto">
+                <Image src={order.image_url} priority={false} alt="Generated artwork" width={512} height={512} className="object-cover absolute" />
+            </div>
+        </div>
+        <div className="col-span-1 p-6 flex flex-col sm:flex-row lg:flex-col justify-start">
+            <label htmlFor="inside-preview" className="block text-sm font-medium leading-6 text-gray-900 mb-2 w-56">
+                Preview of inside
+            </label>
+            <div id="inside-preview" className="max-w-sm max-h-[384px] rounded-md bg-gray-200 border border-gray-200 shadow-inner w-full aspect-[1/1] flex items-center justify-center text-gray-600 relative overflow-hidden h-auto">
+                <div id="inside-back" className="flex flex-col justify-between items-center scale-5 bg-white w-full h-full p-10 text-xs max-w-sm max-h-[384px]">
+                    {topMessage || middleMessage || bottomMessage ? (
+                        <>
+                        <div id="top-message">{topMessage}</div>
+                        <div id="middle-message" className="text-sm text-center whitespace-break-spaces">{middleMessage}</div>
+                        <div id="bottom-message">{bottomMessage}</div>
+                        </>
+                    ) : (
+                        <>
+                        <div id="top-message" className="p-2 bg-indigo-50 text-indigo-600 -mt-2 rounded-md">Top message</div>
+                        <div id="middle-message" className="text-sm text-center whitespace-break-spaces p-2 bg-indigo-50 text-indigo-600 rounded-md">Middle message</div>
+                        <div id="bottom-message"className="p-2 bg-indigo-50 text-indigo-600 -mb-2 rounded-md">Bottom message</div>
+                        </>
+                    )}
+                </div>
+            </div>
+        </div>
+        <form className="flex flex-col space-y-4 p-6 col-span-1" onSubmit={(e) => {e.preventDefault();handleSubmit()}}>
             <div>
                 <label htmlFor="top-message" className="block text-sm font-medium leading-6 text-gray-900">
-                    Top message
+                    Top
                 </label>
                 <div className="mt-2">
                     <input
@@ -51,7 +83,7 @@ export default function AddMessage({ order }: { order: Order }) {
             <div>
                 <div>
                     <label htmlFor="middle-message" className="block text-sm font-medium leading-6 text-gray-900">
-                        Middle message
+                        Middle
                     </label>
                     <div className="mt-2">
                         <textarea
@@ -69,7 +101,7 @@ export default function AddMessage({ order }: { order: Order }) {
             </div>
             <div>
                 <label htmlFor="bottom-message" className="block text-sm font-medium leading-6 text-gray-900">
-                    Bottom message
+                    Bottom
                 </label>
                 <div className="mt-2">
                     <input
@@ -93,5 +125,6 @@ export default function AddMessage({ order }: { order: Order }) {
             </button>
             </div>
         </form>
+        </div>
     )
 }

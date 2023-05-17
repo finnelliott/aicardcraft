@@ -1,7 +1,5 @@
 import AddRecipient from "@/components/application/AddRecipient";
 import AppSteps from "@/components/application/AppSteps";
-import CardHeading from "@/components/application/CardHeading";
-import CardWithHeader from "@/components/application/CardWithHeader";
 import prisma from "../../../../prisma/prismadb"
 
 async function getOrder(order_id: string) {
@@ -12,6 +10,8 @@ async function getOrder(order_id: string) {
     });
     return order
 }
+
+export const revalidate = 0;
 
 export default async function Page({
     params,
@@ -27,7 +27,9 @@ export default async function Page({
     return (
         <section>
             <AppSteps order={order} />
-            <CardWithHeader header={<CardHeading heading={"Add recipient"} />} body={<AddRecipient order={order} />} />
+            <div className="overflow-hidden sm:rounded-lg bg-gray-50 border-gray-200 border">
+            <AddRecipient order={order} />
+            </div>
         </section>
     )
 }

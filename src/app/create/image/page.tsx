@@ -1,6 +1,4 @@
 import AppSteps from "@/components/application/AppSteps";
-import CardHeading from "@/components/application/CardHeading";
-import CardWithHeader from "@/components/application/CardWithHeader";
 import GenerateArtwork from "@/components/application/GenerateArtwork";
 import prisma from "../../../../prisma/prismadb"
 
@@ -12,6 +10,8 @@ async function getOrder(order_id: string) {
     });
     return order
 }
+
+export const revalidate = 0;
 
 export default async function Page({
     params,
@@ -25,7 +25,9 @@ export default async function Page({
     return (
         <section>
             <AppSteps order={order} />
-            <CardWithHeader header={<CardHeading heading={"Generate artwork"} />} body={<GenerateArtwork order={order} />} />
+            <div className="overflow-hidden sm:rounded-lg bg-gray-50 border-gray-200 border">
+            <GenerateArtwork order={order} />
+            </div>
         </section>
     )
 }

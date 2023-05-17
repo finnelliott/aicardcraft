@@ -1,15 +1,10 @@
 import AddMessage from "@/components/application/AddMessage";
 import AppSteps from "@/components/application/AppSteps";
-import CardHeading from "@/components/application/CardHeading";
-import CardWithHeader from "@/components/application/CardWithHeader";
 import prisma from "../../../../prisma/prismadb"
 
 async function getOrder(order_id: string) {
-    const order = await prisma?.order.findUnique({
-        where: {
-            id: order_id
-        }
-    });
+    const res = await fetch(`http://localhost:3000/api/order/${order_id}`,{ next: { tags: ['order'] } })
+    const order = await res.json()
     return order
 }
 
@@ -27,7 +22,9 @@ export default async function Page({
     return (
         <section>
             <AppSteps order={order} />
-            <CardWithHeader header={<CardHeading heading={"Add message"} />} body={<AddMessage order={order} />} />
+            <div className="overflow-hidden sm:rounded-lg bg-gray-50 border-gray-200 border">
+            <AddMessage order={order} />
+            </div>
         </section>
     )
 }

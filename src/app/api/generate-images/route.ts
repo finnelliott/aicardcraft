@@ -33,13 +33,17 @@ export async function POST(request: Request) {
             {
               text: 'ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, bad anatomy, watermark, signature, cut off, low contrast, underexposed, overexposed, bad art, beginner, amateur, distorted face, blurry, draft, grainy',
               weight: -1
+            },
+            {
+              text: 'tiling',
+              weight: -1
             }
           ],
           cfg_scale: 7,
           clip_guidance_preset: 'FAST_BLUE',
           height: 512,
           width: 512,
-          samples: 1,
+          samples: 4,
           steps: 50,
         }),
       }
@@ -87,8 +91,14 @@ export async function POST(request: Request) {
       }
     }
   
-    const url = await fetchAndUpload(responseJSON.artifacts[0].base64);
+    let urls = [];
+    for (const artifact of responseJSON.artifacts) {
+      const url = await fetchAndUpload(artifact.base64);
+      urls.push(url);
+    }
+
     return new Response(JSON.stringify({
-      image_url: url
+      prompt,
+      urls
     }));
 }

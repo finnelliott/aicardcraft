@@ -3,7 +3,7 @@
 import { Order } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PromptBuilderSlideover from "./PromptBuilderSlideover";
 
 function classNames(...classes: string[]) {
@@ -15,13 +15,27 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
     const [image, setImage] = useState(order?.image_url || "");
     const [loading, setLoading] = useState(false);
     const [initiatingOrder, setInitiatingOrder] = useState(false);
-    const [tryAgain, setTryAgain] = useState(false);
     const [promptBuilderOpen, setPromptBuilderOpen] = useState(false);
     const router = useRouter();
 
+    const [generations, setGenerations] = useState<{prompt: string, urls: string[]}[]>([]);
+
+    useEffect(() => {
+        // Get the value from local storage, parse it, and set it as the initial state
+        const savedGenerations = localStorage.getItem('generations');
+        if (savedGenerations !== null) {
+            setGenerations(JSON.parse(savedGenerations));
+        }
+    }, []);
+
+    useEffect(() => {
+        // Save the value to local storage as a JSON string
+        localStorage.setItem('generations', JSON.stringify(generations));
+    }, [generations]);
+
     async function generateArtwork() {
         setLoading(true);
-        const response = await fetch(`/api/generate-image`, {
+        const response = await fetch(`/api/generate-images`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -32,21 +46,21 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
             alert(response.error);
             return;
         }
-        setImage(response.image_url);
+        setGenerations([{ prompt: response.prompt, urls: response.urls }, ...generations])
         setLoading(false);
-        setTryAgain(false);
     }
 
     async function addArtwork() {
         setInitiatingOrder(true);
         if (order !== null) {
-            updateOrder(order);
-            router.push(`/create/message?order_id=${order.id}`);
+            await updateOrder(order);
+            setTimeout(() => {
+                router.push(`/create/message?order_id=${order.id}`);
+            }, 1000);
         } else {
-            const order = await initiateOrder()
+            const order = await initiateOrder();
             router.push(`/create/message?order_id=${order.id}`);
         }
-        setInitiatingOrder(false);
     }
 
     async function initiateOrder() {
@@ -76,6 +90,7 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                 image_url: image,
             }),
         }).then((res) => res.json());
+        await fetch("/api/revalidate?tag=order")
         if (response.error) {
             alert(response.error);
             return;
@@ -85,22 +100,37 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
 
     if (initiatingOrder) {
         return (
-            <div className="w-full aspect-square flex items-center justify-center">
-                <div className="mx-auto text-gray-600 flex flex-col items-center">
-                    <svg className="animate-spin h-10 w-10 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                    </svg>
-                    <div className="pt-4">
-                    Loading...
-                    </div>
+            <div className="flex flex-col items-center justify-center h-96">
+                <div className="flex flex-col items-center justify-center">
+                    Initiating order... 
                 </div>
             </div>
         )
     }
+
     return (
-        <div className="flex flex-col space-y-4">
-            {(!image || tryAgain) ? <form onSubmit={(e) => { e.preventDefault(); generateArtwork(); }} className="flex flex-col space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 lg:divide-x lg:divide-y-0 divide-gray-200">
+            <div className="col-span-2 flex flex-col space-y-4 p-6 col-start-1 row-start-2 lg:row-start-1 border-t border-gray-200 lg:border-none">
+                <div className="w-full divide-y divide-gray-200 flex flex-col space-y-4">
+                    {
+                        generations.length > 0 && 
+                        generations.map((generation) => (
+                        <div key={generation.prompt} className="pt-4">
+                        <div className="w-full grid grid-cols-4 gap-4">
+                        {generation.urls.map((url) => <button onClick={() => setImage(url)} key={url} className={classNames(url == image ? "border-indigo-600": "border-transparent", "rounded-lg overflow-hidden border-2")}>
+                            <div className="relative rounded-md bg-gray-200 shadow-inner w-full border border-gray-200 aspect-[1/1] flex items-center justify-center text-center text-sm p-8 text-gray-600 overflow-hidden h-auto">
+                                <Image src={url} alt="Generated artwork" width={512} height={512} className="object-cover absolute text-center z-20" />
+                                <div className="absolute inset-0 flex items-center justify-center w-full h-full bg-gray-300 animate-pulse z-10" />
+                            </div>
+                        </button>)}
+                        </div>
+                        <div className="w-full text-sm font-normal text-gray-400 pt-4 flex justify-between"><div className="flex-1 truncate">{generation.prompt}</div><button onClick={() => setGenerations([...generations])} className="text-gray-300 underline hover:text-gray-400 flex-none min-w-0 pl-4">Remove</button></div>
+                        </div>
+                        ))}
+                </div>
+            </div>
+            <div className="col-span-1 flex flex-col space-y-4 p-6 row-start-1">
+            <form onSubmit={(e) => { e.preventDefault(); generateArtwork(); }} className="flex flex-col space-y-4">
                 <div>
                     <div>
                         <div className="flex items-center justify-between h-4">
@@ -138,30 +168,19 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                 >
                     {!loading ? "Generate artwork" : "Generating artwork..."}
                 </button>
-            </form> : 
-            <button
-                type="button"
-                onClick={() => setTryAgain(true)}
-                disabled={loading}
-                className={classNames(!(loading) ? "bg-white text-gray-900 hover:bg-gray-50" : "bg-gray-200 text-gray-600", "w-full rounded-md px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300")}
-            >
-                Try another prompt
-            </button>
-            }
-            <div className="py-4 border-y border-gray-200 w-full">
-            <div className="rounded-md bg-gray-200 shadow-inner w-full aspect-[1/1] flex items-center justify-center p-8 text-gray-600 relative overflow-hidden h-auto">
-                {image && <Image src={image} alt="Generated artwork" width={592} height={592} className="object-cover absolute" />}
-                Your generated artwork will appear here.
+                {
+                    image && !loading &&
+                    <button
+                        onClick={addArtwork}
+                        disabled={!image || loading}
+                        type="button"
+                        className={classNames((!image || loading) ? "bg-gray-200 text-gray-600 ring-gray-300 ring-1 ring-inset" : "bg-indigo-600 text-white hover:bg-indigo-500", "w-full rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600")}
+                    >
+                        Continue
+                    </button>
+                }
+            </form>
             </div>
-            </div>
-            <button
-                    onClick={addArtwork}
-                    disabled={!image}
-                    type="button"
-                    className={classNames(!image ? "bg-gray-200 text-gray-600 ring-gray-300 ring-1 ring-inset" : "bg-indigo-600 text-white hover:bg-indigo-500", "w-full rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600")}
-                >
-                    Continue
-            </button>
 
             <PromptBuilderSlideover open={promptBuilderOpen} setOpen={setPromptBuilderOpen} prompt={prompt} setPrompt={setPrompt} />
         </div>

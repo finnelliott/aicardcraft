@@ -21,7 +21,6 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
     const [generations, setGenerations] = useState<{prompt: string, urls: string[]}[]>([]);
 
     useEffect(() => {
-        // Get the value from local storage, parse it, and set it as the initial state
         const savedGenerations = localStorage.getItem('generations');
         if (savedGenerations !== null) {
             setGenerations(JSON.parse(savedGenerations));
@@ -29,24 +28,52 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
     }, []);
 
     useEffect(() => {
-        // Save the value to local storage as a JSON string
         localStorage.setItem('generations', JSON.stringify(generations));
     }, [generations]);
 
-    async function generateArtwork() {
+    async function generateArtwork(promptUsed: string) {
         setLoading(true);
-        const response = await fetch(`/api/generate-images`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ prompt }),
-        }).then((res) => res.json());
-        if (response.error) {
-            alert(response.error);
-            return;
+        try {
+            const res = await fetch(`/api/generate-images`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ prompt: promptUsed }),
+            })
+        
+            if (!res.ok) {
+                throw new Error(res.statusText);
+            }
+        
+            // This data is a ReadableStream
+            const data = res.body;
+            if (!data) {
+                return;
+            }
+        
+            const reader = data.getReader();
+            const decoder = new TextDecoder();
+            let done = false;
+            let response = "";
+        
+            while (!done) {
+                const { value, done: doneReading } = await reader.read();
+                done = doneReading;
+                const chunkValue = decoder.decode(value);
+                response += chunkValue;
+            }
+
+            const { prompt, urls } = JSON.parse(response);
+            if (!prompt || !urls) {
+                alert("Sorry, something went wrong with generating your artwork.");
+            } else {
+                setGenerations([{ prompt, urls }, ...generations])
+            }
+        } catch (error) {
+            alert("We're sorry, we couldn't generate your artwork at this time.");
+            console.error(error)
         }
-        setGenerations([{ prompt: response.prompt, urls: response.urls }, ...generations])
         setLoading(false);
     }
 
@@ -90,12 +117,15 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                 image_url: image,
             }),
         }).then((res) => res.json());
-        await fetch("/api/revalidate?tag=order")
         if (response.error) {
             alert(response.error);
             return;
         }
         return order;
+    }
+
+    function removeGeneration(index: number) {
+        setGenerations(generations.filter((_, i) => i !== index));
     }
 
     if (initiatingOrder) {
@@ -114,7 +144,7 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                 <div className="w-full divide-y divide-gray-200 flex flex-col space-y-4">
                     {
                         generations.length > 0 && 
-                        generations.map((generation) => (
+                        generations.map((generation, index) => (
                         <div key={generation.prompt} className="pt-4">
                         <div className="w-full grid grid-cols-4 gap-4">
                         {generation.urls.map((url) => <button onClick={() => setImage(url)} key={url} className={classNames(url == image ? "border-indigo-600": "border-transparent", "rounded-lg overflow-hidden border-2")}>
@@ -124,13 +154,13 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                             </div>
                         </button>)}
                         </div>
-                        <div className="w-full text-sm font-normal text-gray-400 pt-4 flex justify-between"><div className="flex-1 truncate">{generation.prompt}</div><button onClick={() => setGenerations([...generations])} className="text-gray-300 underline hover:text-gray-400 flex-none min-w-0 pl-4">Remove</button></div>
+                        <div className="w-full text-sm font-normal text-gray-400 pt-4 flex justify-between"><div className="flex-1 truncate">{generation.prompt}</div><button onClick={() => removeGeneration(index)} className="text-gray-300 underline hover:text-gray-400 flex-none min-w-0 pl-4">Remove</button></div>
                         </div>
                         ))}
                 </div>
             </div>
             <div className="col-span-1 flex flex-col space-y-4 p-6 row-start-1">
-            <form onSubmit={(e) => { e.preventDefault(); generateArtwork(); }} className="flex flex-col space-y-4">
+            <form onSubmit={(e) => { e.preventDefault(); generateArtwork(prompt); }} className="flex flex-col space-y-4">
                 <div>
                     <div>
                         <div className="flex items-center justify-between h-4">

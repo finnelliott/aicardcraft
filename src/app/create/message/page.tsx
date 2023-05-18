@@ -3,8 +3,11 @@ import AppSteps from "@/components/application/AppSteps";
 import prisma from "../../../../prisma/prismadb"
 
 async function getOrder(order_id: string) {
-    const res = await fetch(`http://localhost:3000/api/order/${order_id}`,{ next: { tags: ['order'] } })
-    const order = await res.json()
+    const order = await prisma?.order.findUnique({
+        where: {
+            id: order_id
+        }
+    });
     return order
 }
 

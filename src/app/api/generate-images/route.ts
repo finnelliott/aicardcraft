@@ -96,5 +96,6 @@ export async function POST(request: Request): Promise<Response> {
 
     const iterator = makeIterator({ prompt, urls });
     const stream = iteratorToStream(iterator);
+    
     return new Response(stream);
 }

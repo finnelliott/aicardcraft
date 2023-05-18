@@ -35,11 +35,11 @@ model Order {
   prodigi_order_tracking_number String?
   prodigi_order_tracking_status String?
   paid Boolean @default(false)
+  order_history String[]
 }
 
 model User {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
-  email  String? @unique
   name   String?
   orders Order[]
   created_at DateTime @default(now())

@@ -105,7 +105,7 @@ export default async function Page({
                             </div>
                             <div className="mt-2 max-w-xl text-sm text-gray-500 divide-y divide-gray-200">
                                {order.order_history.map((history, index) => (
-                                <div className="py-2">
+                                <div key={index} className="py-2">
                                 <div className="flex items-center">
                                     <div className="ml-3">
                                         <p className="text-sm text-gray-500">

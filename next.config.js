@@ -5,7 +5,7 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
-    domains: ['oaidalleapiprodscus.blob.core.windows.net', 'imagedelivery.net', 'uniquegreetings.ams3.digitaloceanspaces.com'],
+    domains: ['oaidalleapiprodscus.blob.core.windows.net', 'imagedelivery.net', 'uniquegreetings.ams3.digitaloceanspaces.com', 'tailwindui.com'],
   }
 }
 

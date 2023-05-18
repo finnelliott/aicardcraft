@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
+import Image from 'next/image';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -60,7 +61,7 @@ const ImageEditor = () => {
           {image && (
             <form action="/api/checkout_sessions" method="POST">
             <div className="mt-5">
-              <img src={image} alt="Generated" className="w-full h-auto rounded-md shadow-md" />
+              <Image src={image} alt="Generated" className="w-full h-auto rounded-md shadow-md" />
             </div>
             {/* Create a checkout button */}
             <div className="mt-5">

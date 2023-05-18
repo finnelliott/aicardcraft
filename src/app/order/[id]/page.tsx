@@ -64,7 +64,7 @@ export default async function Page({
                                 </p>
                                 <p>
                                     <span className="font-medium text-gray-900">Size:</span> {` `}
-                                    <span className="text-gray-600">5.5"x5.5"</span>
+                                    <span className="text-gray-600">5.5&quot;x5.5&quot;</span>
                                 </p>
                                 <p>
                                     <span className="font-medium text-gray-900">Price:</span> {` `}

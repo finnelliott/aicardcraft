@@ -1,7 +1,7 @@
 import { buffer } from 'micro';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
-import prisma from "../../../../prisma/prismadb"
+import prisma from "../../../../../prisma/prismadb"
 import { uuid } from 'uuidv4';
 import axios from 'axios';
 import FormData from 'form-data';
@@ -24,8 +24,8 @@ export const config = {
 const spacesEndpoint = new AWS.Endpoint('ams3.digitaloceanspaces.com');
 const s3 = new AWS.S3({
     endpoint: spacesEndpoint,
-    accessKeyId: process.env.DO_SECRET_ID,
-    secretAccessKey: process.env.DO_SECRET
+    accessKeyId: process.env.DIGITALOCEAN_SECRET_ID,
+    secretAccessKey: process.env.DIGITALOCEAN_SECRET
 });
 
 async function fetchAndUpload(base64img: string) {
@@ -86,6 +86,9 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     id: client_reference_id
                 },
                 data: {
+                    order_history: {
+                        push: `Order completed at ${new Date().toLocaleString()}`
+                    },
                     paid: true
                 }
             })
@@ -175,7 +178,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     htmlContent
                 })
             })
-            await fetch(process.env.NODE_ENV == "production" ? "https://api.prodigi.com/v4.0/Orders" : "https://api.sandbox.prodigi.com/v4.0/Orders", {
+            const prodigiOrder = await fetch(process.env.NODE_ENV == "production" ? "https://api.prodigi.com/v4.0/Orders" : "https://api.sandbox.prodigi.com/v4.0/Orders", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -207,6 +210,16 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     }
                 ]
             })}).then(res => res.json())
+            console.log(prodigiOrder);
+            await prisma?.order.update({
+                where: {
+                    id: client_reference_id
+                },
+                data: {
+                    prodigi_order_id: prodigiOrder.order.id,
+                    prodigi_order_status: prodigiOrder.order.status.stage,
+                }
+            });
             break;
         default:
             console.error(`Unhandled event type: ${event.type}`);

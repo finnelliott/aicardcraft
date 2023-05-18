@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import puppeteer from 'puppeteer';
-import axios from 'axios';
 import AWS from 'aws-sdk';
 
 async function generateImage(htmlContent: string) {
@@ -23,8 +22,8 @@ async function generateImage(htmlContent: string) {
 const spacesEndpoint = new AWS.Endpoint('ams3.digitaloceanspaces.com');
 const s3 = new AWS.S3({
     endpoint: spacesEndpoint,
-    accessKeyId: process.env.DO_SECRET_ID,
-    secretAccessKey: process.env.DO_SECRET
+    accessKeyId: process.env.DIGITALOCEAN_SECRET_ID,
+    secretAccessKey: process.env.DIGITALOCEAN_SECRET
 });
 
 async function uploadToDigitalOcean(imageBuffer: Buffer, id: string) {

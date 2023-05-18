@@ -11,7 +11,10 @@ export async function POST(request: Request) {
     const order = await prisma.order.create({
         data: {
             image_url,
-            user_id: user.id
+            user_id: user.id,
+            order_history: [
+                `Order created at ${new Date().toLocaleString()}`
+            ]
         },
     });
     return new Response(JSON.stringify(order));

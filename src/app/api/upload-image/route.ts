@@ -7,8 +7,8 @@ export async function POST(request: Request) {
     const s3 = new AWS.S3({
         endpoint: spacesEndpoint,
         region: 'ams3',
-        accessKeyId: process.env.DO_SECRET_ID,
-        secretAccessKey: process.env.DO_SECRET
+        accessKeyId: process.env.DIGITALOCEAN_SECRET_ID,
+        secretAccessKey: process.env.DIGITALOCEAN_SECRET
     });
     async function fetchAndUpload(base64img: string) {
         try {

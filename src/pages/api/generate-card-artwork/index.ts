@@ -78,9 +78,9 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
   ) {
-    const { id, image_url, order } = req.body;
+    const { order, artwork_id } = req.body;
     const formData = new FormData()
-    const response = await axios.get(image_url, { responseType: 'arraybuffer' })
+    const response = await axios.get(order.image_url, { responseType: 'arraybuffer' })
     const imageBuffer = Buffer.from(response.data, 'binary');
     formData.append('image', imageBuffer)
     formData.append('width', "1792")
@@ -113,18 +113,27 @@ export default async function handler(
         <div style=""></div>
         <div id="inside-front" style="width: 1683px; height: 1712px;"></div>
         <div id="inside-back" class="flex flex-col justify-between items-center" style="width: 1683px; height: 1712px; padding-left: 225px; padding-top: 250px; padding-bottom:250px; padding-right:250px; font-size: 48px; text-align: center;">
-            <div id="top-message">${order.top_message}</div>
+            <div id="top-message" class="text-center">${order.top_message}</div>
             <div id="middle-message" style="font-size: 64px;" class="text-center whitespace-break-spaces">${order.middle_message}</div>
-            <div id="bottom-message">${order.bottom_message}</div>
+            <div id="bottom-message" class="text-center">${order.bottom_message}</div>
         </div>
     </body>
     </html>
     `
-    const artwork_url = await generateImage(htmlContent).then(async (imageBuffer) => {
-        const url = await uploadToDigitalOcean(imageBuffer, id).then((url) => {
-            return url;
+    await generateImage(htmlContent).then(async (imageBuffer) => {
+        await uploadToDigitalOcean(imageBuffer, artwork_id).then((url) => {
+            return;
         });
-        return url
+        return;
     });
-    return res.status(200).json({ artwork_url });
+    fetch(`${process.env.HOST_URL}/api/place-prodigi-order`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            order
+        }),
+    })
+    return res.status(200).json({ success: true });
 }

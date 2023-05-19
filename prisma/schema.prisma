@@ -36,6 +36,7 @@ model Order {
   prodigi_order_tracking_status String?
   paid Boolean @default(false)
   order_history String[]
+  artwork_url String?
 }
 
 model User {

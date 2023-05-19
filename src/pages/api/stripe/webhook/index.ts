@@ -135,14 +135,6 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                   responseType: 'arraybuffer'
                 }
             )
-            interface GenerationResponse {
-                artifacts: Array<{
-                  base64: string
-                  seed: number
-                  finishReason: string
-                }>
-            }
-            const responseJSON = data as GenerationResponse
             const image_url_upscaled = await fetchAndUpload(data);
             const htmlContent = `
             <!DOCTYPE html>
@@ -178,48 +170,15 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     htmlContent
                 })
             })
-            const prodigiOrder = await fetch(process.env.NODE_ENV == "production" ? "https://api.prodigi.com/v4.0/Orders" : "https://api.sandbox.prodigi.com/v4.0/Orders", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-Key": process.env.PRODIGI_API_KEY as string,
-            },
-            body: JSON.stringify({
-                "shippingMethod": "Budget",
-                "recipient": {
-                    "address": {
-                        "line1": line1,
-                        "postalOrZipCode": postalOrZipCode,
-                        "countryCode": countryCode,
-                        "townOrCity": townOrCity,
-                        "stateOrCounty": stateOrCounty
-                    },
-                    "name": name
+            fetch(`${process.env.HOST_URL}/api/place-prodigi-order`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
                 },
-                "items": [
-                    {
-                        "sku": "GLOBAL-GRE-GLOS-6X6-DIR",
-                        "copies": 1,
-                        "sizing": "fillPrintArea",
-                        "assets": [
-                            {
-                                "printArea": "default",
-                                "url": artwork_url
-                            }
-                        ]
-                    }
-                ]
-            })}).then(res => res.json())
-            console.log(prodigiOrder);
-            await prisma?.order.update({
-                where: {
-                    id: client_reference_id
-                },
-                data: {
-                    prodigi_order_id: prodigiOrder.order.id,
-                    prodigi_order_status: prodigiOrder.order.status.stage,
-                }
-            });
+                body: JSON.stringify({
+                    client_reference_id, line1, postalOrZipCode, countryCode, townOrCity, stateOrCounty, name, artwork_url
+                })
+            })
             break;
         default:
             console.error(`Unhandled event type: ${event.type}`);

@@ -126,7 +126,7 @@ export default async function handler(
         });
         return;
     });
-    fetch(`${process.env.HOST_URL}/api/place-prodigi-order`, {
+    await fetch(`${process.env.HOST_URL}/api/place-prodigi-order`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

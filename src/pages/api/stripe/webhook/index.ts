@@ -64,7 +64,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
                     artwork_url
                 }
             })
-            fetch(`${process.env.HOST_URL}/api/generate-card-artwork`, {
+            await fetch(`${process.env.HOST_URL}/api/generate-card-artwork`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -1,6 +1,8 @@
+import { Order } from "@prisma/client";
+
 export async function POST(request: Request) {
     const { order } = await request.json();
-    const { id, line1, postalOrZipCode, countryCode, townOrCity, stateOrCounty, name, artwork_url } = order;
+    const { id, recipient_address_line_1: line1, recipient_zip: postalOrZipCode, recipient_country: countryCode, recipient_city: townOrCity, recipient_state: stateOrCounty, recipient_name: name, artwork_url } = order as Order;
     const prodigiOrder = await fetch(process.env.NODE_ENV == "production" ? "https://api.prodigi.com/v4.0/Orders" : "https://api.sandbox.prodigi.com/v4.0/Orders", {
         method: "POST",
         headers: {
@@ -33,6 +35,7 @@ export async function POST(request: Request) {
                 }
             ]
     })}).then(res => res.json())
+    console.log(prodigiOrder);
     await prisma?.order.update({
         where: {
             id: id

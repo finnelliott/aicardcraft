@@ -45,6 +45,7 @@ async function uploadToDigitalOcean(imageBuffer: Buffer, id: string) {
             ACL: 'public-read' // Optional: Set this if you want the file to be publicly accessible
         };
         const data = await s3.upload(uploadParams).promise();
+        console.log(data)
         return data["Location"]
     } catch (error) {
         console.error('Error fetching or uploading the file:', error);
@@ -98,6 +99,7 @@ export default async function handler(
         }
     )
     const image_url_upscaled = await fetchAndUpload(data);
+    console.log("Upscaled URL: ", image_url_upscaled)
     const htmlContent = `
     <!DOCTYPE html>
     <html lang="en">
@@ -107,9 +109,9 @@ export default async function handler(
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.4.1/dist/typography.min.css" rel="stylesheet" />
     </head>
-    <body class="bg-white flex w-screen h-screen" style="">
+    <body class="bg-white flex w-screen h-screesn" style="">
         <div id="outer-rear" style="width: 1683px; height: 1712px;"></div>
-        <img id="outer-front" src="${image_url_upscaled}" style="width: 1683px; height: 1712px; object-fit: cover;" />
+        <img id="outer-front" src="${"https://"+image_url_upscaled}" style="width: 1683px; height: 1712px; object-fit: cover;" />
         <div style=""></div>
         <div id="inside-front" style="width: 1683px; height: 1712px;"></div>
         <div id="inside-back" class="flex flex-col justify-between items-center" style="width: 1683px; height: 1712px; padding-left: 225px; padding-top: 250px; padding-bottom:250px; padding-right:250px; font-size: 48px; text-align: center;">

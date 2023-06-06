@@ -42,7 +42,7 @@ export default function PromptBuilderSlideover({ open, setOpen, prompt, setPromp
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
-                            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                             onClick={() => setOpen(false)}
                           >
                             <span className="sr-only">Close panel</span>
@@ -63,7 +63,7 @@ export default function PromptBuilderSlideover({ open, setOpen, prompt, setPromp
                                 rows={4}
                                 name="prompt"
                                 id="prompt"
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
                                 value={prompt}
                                 onChange={(e) => setPrompt(e.target.value)}
                                 aria-describedby="prompt-description"

@@ -82,11 +82,11 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
         if (order !== null) {
             await updateOrder(order);
             setTimeout(() => {
-                router.push(`/create/message?order_id=${order.id}`);
+                router.push(`/craft/message?order_id=${order.id}`);
             }, 1000);
         } else {
             const order = await initiateOrder();
-            router.push(`/create/message?order_id=${order.id}`);
+            router.push(`/craft/message?order_id=${order.id}`);
         }
     }
 
@@ -131,30 +131,30 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
     if (initiatingOrder) {
         return (
             <div className="flex flex-col items-center justify-center h-96">
-                <div className="flex flex-col items-center justify-center">
-                    Initiating order... 
+                <div className="flex flex-col items-center justify-center text-lg font-medium animate-pulse text-gray-600">
+                    Initiating order...
                 </div>
             </div>
         )
     }
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 lg:divide-x lg:divide-y-0 divide-gray-200">
+        <div className="grid grid-cols-1 lg:grid-cols-3 lg:divide-x lg:divide-y-0 divide-gray-400">
             <div className="col-span-2 flex flex-col space-y-4 p-6 col-start-1 row-start-2 lg:row-start-1 border-t border-gray-200 lg:border-none">
-                <div className="w-full divide-y divide-gray-200 flex flex-col space-y-4">
+                <div className="w-full divide-y divide-gray-400 flex flex-col space-y-4">
                     {
                         generations.length > 0 && 
                         generations.map((generation, index) => (
                         <div key={generation.prompt} className="pt-4">
                         <div className="w-full grid grid-cols-4 gap-4">
-                        {generation.urls.map((url) => <button onClick={() => setImage(url)} key={url} className={classNames(url == image ? "border-indigo-600": "border-transparent", "rounded-lg overflow-hidden border-2")}>
+                        {generation.urls.map((url) => <button onClick={() => setImage(url)} key={url} className={classNames(url == image ? "border-secondary-600": "border-transparent", "rounded-lg overflow-hidden border-2")}>
                             <div className="relative rounded-md bg-gray-200 shadow-inner w-full border border-gray-200 aspect-[1/1] flex items-center justify-center text-center text-sm p-8 text-gray-600 overflow-hidden h-auto">
                                 <Image src={url} alt="Generated artwork" width={512} height={512} className="object-cover absolute text-center z-20" />
                                 <div className="absolute inset-0 flex items-center justify-center w-full h-full bg-gray-300 animate-pulse z-10" />
                             </div>
                         </button>)}
                         </div>
-                        <div className="w-full text-sm font-normal text-gray-400 pt-4 flex justify-between"><div className="flex-1 truncate">{generation.prompt}</div><button onClick={() => removeGeneration(index)} className="text-gray-300 underline hover:text-gray-400 flex-none min-w-0 pl-4">Remove</button></div>
+                        <div className="w-full text-sm font-normal text-gray-400 pt-4 flex justify-between"><div className="flex-1 truncate">{generation.prompt}</div><button onClick={() => removeGeneration(index)} className="text-gray-400 underline hover:text-gray-600 flex-none min-w-0 pl-4">Remove</button></div>
                         </div>
                         ))}
                 </div>
@@ -170,7 +170,7 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                             <button
                                 onClick={() => setPromptBuilderOpen(true)}
                                 type="button"
-                                className="text-sm font-medium leading-6 text-indigo-600 hover:text-indigo-500"
+                                className="text-sm font-medium leading-6 text-secondary-600 hover:text-secondary-500"
                             >
                                 Open prompt builder
                             </button>
@@ -180,7 +180,7 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                             rows={4}
                             name="prompt"
                             id="prompt"
-                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary-600 sm:text-sm sm:leading-6"
                             value={prompt}
                             onChange={(e) => setPrompt(e.target.value)}
                             aria-describedby="prompt-description"
@@ -194,7 +194,7 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                 <button
                     type="submit"
                     disabled={loading || (prompt == "")}
-                    className={classNames(!(loading || (prompt == "")) ? "bg-white text-gray-900 hover:bg-gray-50" : "bg-gray-200 text-gray-600", "w-full rounded-md px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300")}
+                    className={classNames(!(loading || (prompt == "")) ? "bg-white text-gray-900 hover:bg-gray-50" : "bg-gray-200 text-gray-600", "w-full rounded-md px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-400")}
                 >
                     {!loading ? "Generate artwork" : "Generating artwork..."}
                 </button>
@@ -204,7 +204,7 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                         onClick={addArtwork}
                         disabled={!image || loading}
                         type="button"
-                        className={classNames((!image || loading) ? "bg-gray-200 text-gray-600 ring-gray-300 ring-1 ring-inset" : "bg-indigo-600 text-white hover:bg-indigo-500", "w-full rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600")}
+                        className={classNames((!image || loading) ? "bg-gray-200 text-gray-600 ring-gray-400 ring-1 ring-inset" : "bg-secondary-600 text-white hover:bg-secondary-500", "w-full rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600")}
                     >
                         Continue
                     </button>

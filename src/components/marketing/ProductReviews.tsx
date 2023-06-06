@@ -22,10 +22,10 @@ function classNames(...classes: string[]) {
 
 export default function ProductReviews() {
   return (
-    <div className="bg-white">
+    <div id="reviews" className="">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="text-lg font-medium text-gray-900">Recent reviews</h2>
-        <div className="mt-6 space-y-10 divide-y divide-gray-200 border-b border-t border-gray-200 pb-10">
+        <div className="mt-6 space-y-10 divide-y divide-gray-200 border-b border-t border-gray-400 pb-10">
           {reviews.map((review) => (
             <div key={review.id} className="pt-10 lg:grid lg:grid-cols-12 lg:gap-x-8">
               <div className="lg:col-span-8 lg:col-start-5 xl:col-span-9 xl:col-start-4 xl:grid xl:grid-cols-3 xl:items-start xl:gap-x-8">
@@ -62,7 +62,7 @@ export default function ProductReviews() {
                 <p className="font-medium text-gray-900">{review.author}</p>
                 <time
                   dateTime={review.datetime}
-                  className="ml-4 border-l border-gray-200 pl-4 text-gray-500 lg:ml-0 lg:mt-2 lg:border-0 lg:pl-0"
+                  className="ml-4 border-l border-gray-400 pl-4 text-gray-500 lg:ml-0 lg:mt-2 lg:border-0 lg:pl-0"
                 >
                   {review.date}
                 </time>

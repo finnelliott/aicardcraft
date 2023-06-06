@@ -40,8 +40,8 @@ export default function OrderIncomplete({ order }: { order: Order }) {
             <div className="max-w-3xl mx-auto p-4 pb-8 flex items-center flex-col">
                 <h1 className="text-3xl font-bold text-gray-900 pb-4">Order incomplete</h1>
                 <Link
-                    href={`/create/image?order_id=${order.id}`}
-                    className="text-indigo-600 hover:text-indigo-700"
+                    href={`/craft/image?order_id=${order.id}`}
+                    className="text-primary-600 hover:text-primary-700"
                 >
                     Click here to complete your order
                 </Link>

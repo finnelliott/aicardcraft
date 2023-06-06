@@ -56,7 +56,7 @@ export async function PUT(request: Request, { params }: {
             },
             ],
             success_url: `${origin}/order/${order.id}`,
-            cancel_url: `${origin}/create/recipient?order_id=${order.id}`,
+            cancel_url: `${origin}/craft/recipient?order_id=${order.id}`,
         }
         const checkoutSession: Stripe.Checkout.Session =
             await stripe.checkout.sessions.create(params)

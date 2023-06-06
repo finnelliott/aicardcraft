@@ -1,49 +1,27 @@
 "use client";
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    theme: {
-      extend: {
-        gridTemplateRows: {
-          '[auto,auto,1fr]': 'auto auto 1fr',
-        },
-      },
-    },
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
-import { RadioGroup } from '@headlessui/react'
 import Link from 'next/link';
 import Image from 'next/image';
 
 const product = {
   name: 'AI-Generated Artwork Greetings Card',
-  price: '£3.60',
+  price: '£3.50',
   images: [
     {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
+      src: '/card-mockup-1.png',
       alt: 'Two each of gray, white, and black shirts laying flat.',
     },
     {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
+      src: '/card-mockup-2.png',
       alt: 'Model wearing plain black basic tee.',
     },
     {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
+      src: '/card-mockup-3.png',
       alt: 'Model wearing plain gray basic tee.',
     },
     {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg',
+      src: '/card-mockup-4.png',
       alt: 'Model wearing plain white basic tee.',
     },
   ],
@@ -84,12 +62,12 @@ export default function ProductOverview() {
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
 
   return (
-    <div className="bg-white">
-      <div className="pt-6">
+    <div className="">
+      <div className="">
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+        <div className="mx-auto mt-6 sm:px-6 grid max-w-7xl grid-cols-2 lg:grid-cols-4 gap-8 px-4 lg:px-8">
+          <div className="aspect-square overflow-hidden rounded-lg block">
             <Image
               width={500}
               height={500}
@@ -98,27 +76,25 @@ export default function ProductOverview() {
               className="h-full w-full object-cover object-center"
             />
           </div>
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <Image
-                width={500}
-                height={500}
-                src={product.images[1].src}
-                alt={product.images[1].alt}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <Image
-                width={500}
-                height={500}
-                src={product.images[2].src}
-                alt={product.images[2].alt}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
+          <div className="aspect-square overflow-hidden rounded-lg">
+            <Image
+              width={500}
+              height={500}
+              src={product.images[1].src}
+              alt={product.images[1].alt}
+              className="h-full w-full object-cover object-center"
+            />
           </div>
-          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+          <div className="aspect-square overflow-hidden rounded-lg">
+            <Image
+              width={500}
+              height={500}
+              src={product.images[2].src}
+              alt={product.images[2].alt}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+          <div className="aspect-square overflow-hidden rounded-lg">
             <Image
               width={500}
               height={500}
@@ -131,7 +107,7 @@ export default function ProductOverview() {
 
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+          <div className="lg:col-span-2 lg:border-r lg:border-gray-400 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
           </div>
 
@@ -157,25 +133,25 @@ export default function ProductOverview() {
                   ))}
                 </div>
                 <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                <a href={reviews.href} className="ml-3 text-sm font-medium text-primary-600 hover:text-primary-500">
                   {reviews.totalCount} reviews
                 </a>
               </div>
             </div>
 
             <div className="mt-10">
-              <Link href="/create/image">
+              <Link href="/craft/image">
               <button
                 type="button"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-primary-600 px-8 py-3 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
               >
-                Create a card
+                Craft a card
               </button>
               </Link>
             </div>
           </div>
 
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-400 lg:pb-16 lg:pr-8 lg:pt-6">
             {/* Description and details */}
             <div>
               <h3 className="sr-only">Description</h3>

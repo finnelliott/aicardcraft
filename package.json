@@ -1,5 +1,5 @@
 {
-  "name": "unique-greetings",
+  "name": "ai-card-craft",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -22,12 +22,12 @@
     "@types/react-dom": "18.2.1",
     "autoprefixer": "10.4.14",
     "aws-sdk": "^2.1379.0",
+    "axios": "^1.4.0",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
     "form-data": "^4.0.0",
     "micro": "^10.0.1",
     "next": "^13.4.2",
-    "openai": "^3.2.1",
     "postcss": "8.4.23",
     "puppeteer": "^19.11.1",
     "react": "18.2.0",

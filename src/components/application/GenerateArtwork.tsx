@@ -13,6 +13,7 @@ function classNames(...classes: string[]) {
 export default function GenerateArtwork({ order }: {order: Order | null}) {
     const [prompt, setPrompt] = useState("");
     const [image, setImage] = useState(order?.image_url || "");
+    const [promptUsed, setPromptUsed] = useState("");
     const [loading, setLoading] = useState(false);
     const [initiatingOrder, setInitiatingOrder] = useState(false);
     const [promptBuilderOpen, setPromptBuilderOpen] = useState(false);
@@ -31,7 +32,7 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
         localStorage.setItem('generations', JSON.stringify(generations));
     }, [generations]);
 
-    async function generateArtwork(promptUsed: string) {
+    async function generateArtwork(prompt: string) {
         setLoading(true);
         try {
             const res = await fetch(`/api/generate-images`, {
@@ -39,7 +40,7 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ prompt: promptUsed }),
+                body: JSON.stringify({ prompt }),
             })
         
             if (!res.ok) {
@@ -64,8 +65,8 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                 response += chunkValue;
             }
 
-            const { prompt, urls } = JSON.parse(response);
-            if (!prompt || !urls) {
+            const { urls } = JSON.parse(response);
+            if (!urls) {
                 alert("Sorry, something went wrong with generating your artwork.");
             } else {
                 setGenerations([{ prompt, urls }, ...generations])
@@ -97,7 +98,8 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ 
-                image_url: image
+                image_url: image,
+                prompt: promptUsed,
             }),
         }).then((res) => res.json());
         if (order.error) {
@@ -147,7 +149,7 @@ export default function GenerateArtwork({ order }: {order: Order | null}) {
                         generations.map((generation, index) => (
                         <div key={generation.prompt} className="pt-4">
                         <div className="w-full grid grid-cols-4 gap-4">
-                        {generation.urls.map((url) => <button onClick={() => setImage(url)} key={url} className={classNames(url == image ? "border-secondary-600": "border-transparent", "rounded-lg overflow-hidden border-2")}>
+                        {generation.urls.map((url) => <button onClick={() => {setImage(url);setPromptUsed(generation.prompt);}} key={url} className={classNames(url == image ? "border-secondary-600": "border-transparent", "rounded-lg overflow-hidden border-2")}>
                             <div className="relative rounded-md bg-gray-200 shadow-inner w-full border border-gray-200 aspect-[1/1] flex items-center justify-center text-center text-sm p-8 text-gray-600 overflow-hidden h-auto">
                                 <Image src={url} alt="Generated artwork" width={512} height={512} className="object-cover absolute text-center z-20" />
                                 <div className="absolute inset-0 flex items-center justify-center w-full h-full bg-gray-300 animate-pulse z-10" />

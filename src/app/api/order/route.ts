@@ -1,7 +1,7 @@
 import prisma from "../../../../prisma/prismadb";
 
 export async function POST(request: Request) {
-    const { image_url } = await request.json();
+    const { image_url, prompt } = await request.json();
     if (!image_url) {
         return new Response("No image_url set", { status: 500 });
     }
@@ -10,6 +10,7 @@ export async function POST(request: Request) {
     })
     const order = await prisma.order.create({
         data: {
+            prompt,
             image_url,
             user_id: user.id,
             order_history: [
